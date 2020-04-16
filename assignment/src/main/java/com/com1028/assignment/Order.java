@@ -17,7 +17,7 @@ public class Order {
 	this.customerNumber = customerNumber;
 	this.products = new ArrayList<OrderDetails>();
 	
-	for(OrderDetails product : products) {
+	for (OrderDetails product : products) {
 	  this.orderTotal += product.getQuantityOrder() * product.getPriceEach();
 	}
   }
@@ -54,9 +54,9 @@ public class Order {
   @Override
   public String toString() {
 	StringBuilder builder = new StringBuilder();
-	builder.append("Order Number:" + this.getOrderNumber());
-	builder.append("\nCustomer Number: " + this.getCustomerNumber());
-	builder.append("\nOrder Total:" + this.getOrderTotal());
+	builder.append("Order N°:" + this.getOrderNumber());
+	builder.append("\tCustomer N°: " + this.getCustomerNumber());
+	builder.append("\tOrder Total:" + this.getOrderTotal());
 	builder.append("\n");
 	return builder.toString();
 	}

@@ -17,21 +17,21 @@ public class OrderDetails {
    * @return the orderNumber
    */
   public int getOrderNumber() {
-    return orderNumber;
+    return this.orderNumber;
   }
 
   /**
    * @return the quantityOrder
    */
   public int getQuantityOrder() {
-    return quantityOrder;
+    return this.quantityOrder;
   }
 
   /**
    * @return the priceEach
    */
   public double getPriceEach() {
-    return priceEach;
+    return this.priceEach;
   }
   
 }
