@@ -16,10 +16,6 @@ public class Order {
 	this.orderNumber = orderNumber;
 	this.customerNumber = customerNumber;
 	this.products = new ArrayList<OrderDetails>();
-	
-	for (OrderDetails product : products) {
-	  this.orderTotal += product.getQuantityOrder() * product.getPriceEach();
-	}
   }
 
   /**
@@ -40,6 +36,9 @@ public class Order {
    * @return the total
    */
   public double getOrderTotal() {
+	for (OrderDetails product : products) {
+	  this.orderTotal += product.getQuantityOrder() * product.getPriceEach();
+	}
     return this.orderTotal;
   }
   
