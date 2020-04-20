@@ -21,11 +21,14 @@ public class Order {
 	this.products = new ArrayList<OrderDetails>();
   }
   
-  public static List<Order> fetchOrders() {
-	BaseQuery conn = new BaseQuery("root", "");
+  public static List<Order> getOrders() {
+	if (!orders.isEmpty()) {
+	  return orders;
+	}
 	Map<Integer, Order> ordersMap = new TreeMap<Integer, Order>();
 	
 	try {
+	  DatabaseConnection conn = DatabaseConnection.getInstance();
 	  ResultSet ordersTable = conn.useTable("orders");
  
 	  while (ordersTable.next()) {
@@ -44,13 +47,14 @@ public class Order {
 	return orders= new ArrayList<Order>(ordersMap.values());
   }
   
-  public static void requirement1 () {
-	System.out.println("Order N°\tCustomer N°\tOrder Total\n");
-	for (Order order : Order.fetchOrders()) {
+  public static String ordersOver5000() {
+	StringBuilder builder = new StringBuilder("Order N°\tCustomer N°\tOrder Total\n");
+	for (Order order : Order.getOrders()) {
 	  if (order.getOrderTotal() > 5000) {
-		System.out.println(order.toString());  
+		builder.append(order.toString());  
 	  }
 	}
+	return builder.toString();
   }
   
   /**
@@ -85,13 +89,6 @@ public class Order {
    */
   public int getCustomerNumber() {
     return this.customerNumber;
-  }
-  
-  /**
-   * @return the orders
-   */
-  public static List<Order> getOrders() {
-    return orders;
   }
   
   @Override

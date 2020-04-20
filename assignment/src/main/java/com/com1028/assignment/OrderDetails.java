@@ -20,10 +20,10 @@ public class OrderDetails {
   }
   
   public static List<OrderDetails> getOrderDetails() {
-	BaseQuery conn = new BaseQuery("root", "");
 	List<OrderDetails> products = new ArrayList<OrderDetails>();
 	
 	try {
+	  DatabaseConnection conn = DatabaseConnection.getInstance();
 	  ResultSet orderDetailsTable = conn.useTable("orderdetails");
 
 	  while (orderDetailsTable.next()) {
