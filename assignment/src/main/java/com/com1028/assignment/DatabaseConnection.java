@@ -13,14 +13,14 @@ public class DatabaseConnection {
   private static Connection connection = null;
   private static Statement statement = null;
   private static ResultSet rs = null;
-  private final static String username = "root";
-  private final static String password = "";
-  private final static String db = "jdbc:mysql://localhost:3306/classicmodels?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
+  private final static String USERNAME = "root";
+  private final static String PASSWORD = "";
+  private final static String DB = "jdbc:mysql://localhost:3306/classicmodels?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=UTC";
 
   private DatabaseConnection() throws SQLException {
 	try {
 	  DriverManager.registerDriver(new com.mysql.cj.jdbc.Driver ());
-	  connection = DriverManager.getConnection(db, username, password);
+	  connection = DriverManager.getConnection(DB, USERNAME, PASSWORD);
 	}
 	catch(Exception e) {
 	  System.out.println("Failed to get connection");
