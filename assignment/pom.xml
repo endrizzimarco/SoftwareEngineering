@@ -25,6 +25,12 @@
       <version>4.13</version>
       <scope>test</scope>
     </dependency>
-  </dependencies>
   
+  <!--  https://mvnrepository.com/artifact/commons-dbutils/commons-dbutils -->
+    <dependency>
+      <groupId>commons-dbutils</groupId>
+      <artifactId>commons-dbutils</artifactId>
+      <version>1.7</version>
+    </dependency>
+  </dependencies>
 </project>
