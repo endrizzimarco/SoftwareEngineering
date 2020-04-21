@@ -1,53 +1,83 @@
 package com.com1028.assignment;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class SalesRep {
-  
+
   private int employeeNumber = 0;
-  private String firstname = null;
+  private String firstName = null;
   private String lastName = null;
-  private double revenueGenerated = 0;
-  private List<Customer> customers = null;
-  
-  public SalesRep(int employeeNumber, String firstname, String lastname) {
+  public List<Customer> customers = null;
+  public static List<SalesRep> salesReps = new ArrayList<SalesRep>();
+
+  public SalesRep(int employeeNumber, String firstName, String lastName) {
 	this.employeeNumber = employeeNumber;
-	this.firstname = firstname;
-	this.lastName = lastname;
+	this.firstName = firstName;
+	this.lastName = lastName;
 	this.customers = new ArrayList<Customer>();
-	
-	for (Customer customer : customers) {
-	  this.revenueGenerated = customer.getCustomerTotal();
+  }
+
+  public static List<SalesRep> getSalesReps() {
+	if (!salesReps.isEmpty()) {
+	  return salesReps;
 	}
+	Map<Integer, SalesRep> salesRepsMap = new TreeMap<Integer, SalesRep>();
+
+	try {
+	  DatabaseConnection conn = DatabaseConnection.getInstance();
+	  ResultSet employeeTable = conn.useTable("employees");
+	  while (employeeTable.next()) {
+		int employeeNumber = employeeTable.getInt("employeeNumber");
+		String firstName = employeeTable.getString("firstName");
+		String lastName = employeeTable.getString("lastName");
+		String jobTitle = employeeTable.getString("jobTitle");
+
+		if (jobTitle.equals("Sales Rep")) {
+		  salesRepsMap.put(employeeNumber, new SalesRep(employeeNumber, firstName, lastName));
+		}
+	  }
+	  for (Customer customer : Customer.getCustomers()) {
+		if (customer.getSalesRepEmployeeNumber() != 0) {
+		  SalesRep tmpSalesRep = salesRepsMap.get(customer.getSalesRepEmployeeNumber());
+		  tmpSalesRep.addCustomer(customer);
+		}
+	  }
+	} catch (SQLException e) {
+	  e.printStackTrace();
+	}
+	return salesReps = new ArrayList<SalesRep>(salesRepsMap.values());
   }
 
-  /**
-   * @return the employeeNumber
-   */
-  public int getEmployeeNumber() {
-    return this.employeeNumber;
+  public void addCustomer(Customer customer) {
+	this.customers.add(customer);
   }
 
-  /**
-   * @return the firstname
-   */
-  public String getFirstname() {
-    return this.firstname;
-  }
-
-  /**
-   * @return the lastName
-   */
-  public String getLastName() {
-    return this.lastName;
-  }
-
-  /**
-   * @return the revenueGenerated
-   */
   public double getRevenueGenerated() {
-    return this.revenueGenerated;
+	double revenueGenerated = 0;
+
+	for (Customer customer : this.customers) {
+	  revenueGenerated += customer.getCustomerTotal();
+	}
+	return revenueGenerated;
   }
- 
+  
+  public static String getRevenueForEachSalesRep() {
+	StringBuilder builder = new StringBuilder("SalesRep N°\tName\t    Surname\t   Revenue\n");
+	for (SalesRep salesRep : SalesRep.getSalesReps()) {
+	  builder.append(salesRep.toString());
+	}
+	return builder.toString();
+  }
+
+  @Override
+  public String toString() {
+	return String.format(Locale.UK, "%-16s%-12s%-15s%.2f\n", this.employeeNumber, this.firstName, this.lastName, this.getRevenueGenerated());
+  }
+
 }
