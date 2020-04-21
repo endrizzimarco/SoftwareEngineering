@@ -48,34 +48,14 @@ public class Order {
 	return orders = new ArrayList<Order>(ordersMap.values());
   }
 
-  public static String getOrdersOver5000() {
-	StringBuilder builder = new StringBuilder("Order N°\tCustomer N°\tOrder Total\n");
-	for (Order order : Order.getOrders()) {
-	  if (order.getOrderTotal() > 5000) {
-		builder.append(order.toString());
-	  }
-	}
-	return builder.toString();
-  }
-
-  /**
-   * @param product in an order
-   * 
-   */
   public void addProducts(OrderDetails product) {
 	this.products.add(product);
   }
-
-  /**
-   * @return the orderNumber
-   */
-  public int getOrderNumber() {
-	return this.orderNumber;
+  
+  public int getCustomerNumber() {
+	return this.customerNumber;
   }
 
-  /**
-   * @return the total
-   */
   public double getOrderTotal() {
 	double orderTotal = 0;
 
@@ -84,12 +64,15 @@ public class Order {
 	}
 	return orderTotal;
   }
-
-  /**
-   * @return the customerNumber
-   */
-  public int getCustomerNumber() {
-	return this.customerNumber;
+  
+  public static String getOrdersOver5000() {
+	StringBuilder builder = new StringBuilder("Order N°\tCustomer N°\tOrder Total\n");
+	for (Order order : Order.getOrders()) {
+	  if (order.getOrderTotal() > 5000) {
+		builder.append(order.toString());
+	  }
+	}
+	return builder.toString();
   }
 
   @Override

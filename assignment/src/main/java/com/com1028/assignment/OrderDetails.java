@@ -39,23 +39,14 @@ public class OrderDetails {
 	return products;
   }
 
-  /**
-   * @return the orderNumber
-   */
   public int getOrderNumber() {
 	return orderNumber;
   }
 
-  /**
-   * @return the quantityOrder
-   */
   public int getQuantityOrder() {
 	return this.quantityOrder;
   }
 
-  /**
-   * @return the priceEach
-   */
   public double getPriceEach() {
 	return this.priceEach;
   }
