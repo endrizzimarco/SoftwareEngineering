@@ -50,6 +50,7 @@ public class DatabaseConnection {
 	
   public static void closeConnection() {
 	try {
+	  // same as if (connection != null) { connnection.close() }
 	  DbUtils.close(connection);
 	  DbUtils.close(statement);
 	  DbUtils.close(rs);
