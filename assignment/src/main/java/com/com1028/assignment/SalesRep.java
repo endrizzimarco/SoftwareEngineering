@@ -13,8 +13,8 @@ public class SalesRep {
   private int employeeNumber = 0;
   private String firstName = null;
   private String lastName = null;
-  public List<Customer> customers = null;
-  public static List<SalesRep> salesReps = new ArrayList<SalesRep>();
+  private List<Customer> customers = null;
+  private static List<SalesRep> salesReps = new ArrayList<SalesRep>();
 
   public SalesRep(int employeeNumber, String firstName, String lastName) {
 	this.employeeNumber = employeeNumber;
