@@ -10,6 +10,7 @@ public class OrderDetails {
   private int orderNumber = 0;
   private int quantityOrder = 0;
   private double priceEach = 0;
+  private static List<OrderDetails> products = new ArrayList<OrderDetails>();
 
   public OrderDetails(int orderNumber, int quantityOrder, double priceEach) {
 	super();
@@ -19,8 +20,9 @@ public class OrderDetails {
   }
 
   public static List<OrderDetails> getOrderDetails() {
-	List<OrderDetails> products = new ArrayList<OrderDetails>();
-
+	if (!products.isEmpty()) {
+	  return products;
+	}
 	try {
 	  DatabaseConnection conn = DatabaseConnection.getInstance();
 	  ResultSet orderDetailsTable = conn.useTable("orderdetails");
