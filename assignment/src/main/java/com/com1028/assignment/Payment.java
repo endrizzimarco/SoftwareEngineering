@@ -9,6 +9,8 @@ public class Payment {
   
   private int customerNumber = 0;
   private double amount = 0;
+  // list containing all Payment objects
+  private static List<Payment> payments = new ArrayList<Payment>();
   
   public Payment(int customerNumber, double amount) {
 	super();
@@ -16,9 +18,13 @@ public class Payment {
 	this.amount = amount;
   }
   
+  // returns and sets payments list
   public static List<Payment> getPayments() {
-	List<Payment> payments = new ArrayList<Payment>();
-
+	// if loop already ran, return end product
+	if (!payments.isEmpty()) {
+	  return payments;
+	}
+	// create Payments objects and add them to list payments
 	try {
 	  DatabaseConnection conn = DatabaseConnection.getInstance();
 	  ResultSet paymentsTable = conn.useTable("payments");

@@ -11,6 +11,10 @@ import org.junit.Test;
 
 public class Requirement2Test {
 
+  /* 
+   * compares getAmountPaidByEachCustomer() output against data fetched
+   * directly from the database using an SQL query
+  */
   @Test
   public void test() {
 	try {

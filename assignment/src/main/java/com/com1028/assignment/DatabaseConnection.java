@@ -7,6 +7,11 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import org.apache.commons.dbutils.DbUtils;
 
+/*
+ * This is a singleton class allowing the same connection 
+ * to be used for the whole program instead of opening
+ * and closing multiple connections
+ */
 public class DatabaseConnection {
   	
   private static DatabaseConnection instance = null;
@@ -27,6 +32,7 @@ public class DatabaseConnection {
 	}
   }
 	
+  // returns a table from the database
   protected ResultSet useTable(String tableName) throws SQLException{
 	String query = "select * from " + tableName; 
 	statement = connection.createStatement();
@@ -38,6 +44,7 @@ public class DatabaseConnection {
     return connection;
   }
 	
+  // returns class instance and opens connection if needed
   public static DatabaseConnection getInstance() throws SQLException {
 	if (instance == null) {
 	  instance = new DatabaseConnection();
@@ -48,9 +55,10 @@ public class DatabaseConnection {
 	return instance;
 	}
 	
+  // closes connection, statement, and resultSet
   public static void closeConnection() {
 	try {
-	  // same as if (connection != null) { connnection.close() }
+	  // same as: if (connection != null) { connnection.close() }
 	  DbUtils.close(connection);
 	  DbUtils.close(statement);
 	  DbUtils.close(rs);

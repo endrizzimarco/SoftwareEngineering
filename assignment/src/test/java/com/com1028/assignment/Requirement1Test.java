@@ -11,6 +11,11 @@ import org.junit.Test;
 
 public class Requirement1Test {
 
+  /* 
+   * compares getOrdersOver5000() output against data fetched
+   * directly from the database using an SQL query
+  */
+  
   @Test
   public void test() {
 	try {

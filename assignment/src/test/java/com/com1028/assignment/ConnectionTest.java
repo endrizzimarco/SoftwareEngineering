@@ -11,6 +11,7 @@ import org.junit.Test;
 public class ConnectionTest {
 
   @Test
+  // test function closeConnection() is working as intended
   public void closeConnectionTest() {
 	try {
 	  DatabaseConnection conn = DatabaseConnection.getInstance();
@@ -24,7 +25,6 @@ public class ConnectionTest {
 	  
 	  DatabaseConnection.closeConnection();
 	  
-	  assertTrue(conn.getConnection().isClosed());
 	  assertTrue(rs.isClosed());
 	  assertTrue(s.isClosed());
 	  assertTrue(conn.getConnection().isClosed());
@@ -34,6 +34,7 @@ public class ConnectionTest {
     }
   }
   
+  // test getInstance() is returning the same connection
   @Test 
   public void singletonConnectionTest() {
 	try {

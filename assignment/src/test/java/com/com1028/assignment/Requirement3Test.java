@@ -11,11 +11,15 @@ import org.junit.Test;
 
 public class Requirement3Test {
 
+  /* 
+   * compares getRevenueForEachSalesRep() output against data fetched
+   * directly from the database using an SQL query
+  */
   @Test
   public void test() {
 	try {
 	  DatabaseConnection conn = DatabaseConnection.getInstance();
-	  String query = "select employeeNumber, firstName, lastName, SUM(payments.amount) AS totalRevenue FROM employees LEFT JOIN customers ON customers.salesRepEmployeeNumber=employees.employeeNumber LEFT JOIN payments on payments.customerNumber=customers.customerNumber WHERE jobTitle = \"Sales Rep\" GROUP BY employeeNumber;";
+	  String query = "SELECT employeeNumber, firstName, lastName, SUM(payments.amount) AS totalRevenue FROM employees LEFT JOIN customers ON customers.salesRepEmployeeNumber=employees.employeeNumber LEFT JOIN payments on payments.customerNumber=customers.customerNumber WHERE jobTitle = \"Sales Rep\" GROUP BY employeeNumber;";
 	  Statement s = conn.getConnection().createStatement();
 	  ResultSet rs = s.executeQuery(query);
 	

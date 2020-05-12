@@ -13,7 +13,9 @@ public class Customer {
   private int customerNumber = 0;
   private String customerName = null;
   private int salesRepEmployeeNumber = 0;
+  // list containing all Payment made by a Customer
   private List<Payment> payments = null;
+  // list containing all Customer objects
   private static List<Customer> customers = new ArrayList<Customer>();
 
   public Customer(int customerNumber, String customerName, int salesRepEmployeeNumber) {
@@ -24,13 +26,17 @@ public class Customer {
 	this.payments = new ArrayList<Payment>();
   }
   
+  // returns and sets customers list
   public static List<Customer> getCustomers() {
+	// if loop already ran, return end product
 	if (!customers.isEmpty()) {
 	  return customers;
 	}
+	// treemap containing customerNumber as key and a Customer object as value
 	Map<Integer, Customer> customersMap = new TreeMap<Integer, Customer>();
 	
  	try {
+ 	  // create Customer objects and add them to customersMap along with customerNumber
  	  DatabaseConnection conn = DatabaseConnection.getInstance();
  	  ResultSet customersTable = conn.useTable("customers");
  	  
@@ -41,7 +47,7 @@ public class Customer {
 		
 		customersMap.put(customerNumber, (new Customer (customerNumber, customerName, salesRepNumber)));
 	  }
-	  
+	  // loop through all Payments and add them to payments if the customerNumber matches
 	  for (Payment payment : Payment.getPayments()) {
 		Customer tmpCustomer = customersMap.get(payment.getCustomerNumber());
 		tmpCustomer.addPayment(payment);
@@ -60,7 +66,8 @@ public class Customer {
   public int getSalesRepEmployeeNumber() {
     return this.salesRepEmployeeNumber;
   }
-
+  
+  // returns total amount paid by this customer
   public double getCustomerTotal() {
 	double customerTotal= 0;
 	
@@ -70,6 +77,7 @@ public class Customer {
     return customerTotal;
   }
   
+  // returns a string containing the total for every customer
   public static String getAmountPaidByEachCustomer() {
 	StringBuilder builder = new StringBuilder("Customer N°\tCustomer Name\t\t\t   Total Paid($)\n");
 	for (Customer customer : Customer.getCustomers()) {

@@ -10,6 +10,7 @@ public class OrderDetails {
   private int orderNumber = 0;
   private int quantityOrder = 0;
   private double priceEach = 0;
+  // list containing all OrderDetails objects
   private static List<OrderDetails> products = new ArrayList<OrderDetails>();
 
   public OrderDetails(int orderNumber, int quantityOrder, double priceEach) {
@@ -19,11 +20,14 @@ public class OrderDetails {
 	this.priceEach = priceEach;
   }
 
+  // returns and sets products list
   public static List<OrderDetails> getOrderDetails() {
+	// if loop already ran, return end product
 	if (!products.isEmpty()) {
 	  return products;
 	}
 	try {
+	  // create OrderDetails objects and add them to list products
 	  DatabaseConnection conn = DatabaseConnection.getInstance();
 	  ResultSet orderDetailsTable = conn.useTable("orderdetails");
 
